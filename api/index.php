@@ -4,6 +4,10 @@ require_once 'Bot.php';
 header('content-type: application/json');
 $token = $_REQUEST['token'] ?? null;
 $message = $_REQUEST['message'] ?? '';
+$parse_mode = $_REQUEST['parse_mode'] ?? '';
+$disable_web_page_preview = $_REQUEST['disable_web_page_preview'] ?? False;
+$disable_notification = $_REQUEST['disable_notification'] ?? False;
+$reply_to_message_id = $_REQUEST['reply_to_message_id'] ?? 0;
 
 $bot = new Bot();
 
@@ -12,7 +16,7 @@ if (is_null($token)) {
 } else {
     // 发送消息
     $chat_id = $bot->decryption($token);
-    $ret = $bot->sendMessage(['text' => $message, 'chat_id' => $chat_id]);
+    $ret = $bot->sendMessage(['text' => $message, 'parse_mode' => $parse_mode,'disable_web_page_preview' => $disable_web_page_preview,'disable_notification' => $disable_notification,'reply_to_message_id' => $reply_to_message_id,'chat_id' => $chat_id]);
     if ($ret['ok']) {
         echo json_encode(['code' => 200, 'message' => 'success']);
     } else {
