@@ -3,7 +3,7 @@ require_once 'Bot.php';
 
 header('content-type: application/json');
 $token = $_REQUEST['token'] ?? null;
-$fun = $_REQUEST['fun'] ?? "sendMessage";
+$fun = $_REQUEST['fun'] ?? "";
 $message = $_REQUEST['message'] ?? '';
 $photo = $_REQUEST['photo'] ?? '';
 $caption = $_REQUEST['caption'] ?? '';
@@ -31,6 +31,15 @@ if (is_null($token)) {
 		case "sendPhoto":
 			//发图
 			$ret = $bot->sendPhoto(['parse_mode' => $parse_mode, 'caption' => $caption, 'photo' => $photo, 'chat_id' => $chat_id]);
+			if ($ret['ok']) {
+				echo json_encode(['code' => 200, 'message' => 'success']);
+			} else {
+				echo json_encode(['code' => 422, 'message' => $ret['description']]);
+			}
+			break;
+		default:
+			// 发送消息
+			$ret = $bot->sendMessage(['text' => $message, 'parse_mode' => $parse_mode,'disable_web_page_preview' => $disable_web_page_preview,'disable_notification' => $disable_notification,'reply_to_message_id' => $reply_to_message_id,'chat_id' => $chat_id]);
 			if ($ret['ok']) {
 				echo json_encode(['code' => 200, 'message' => 'success']);
 			} else {
