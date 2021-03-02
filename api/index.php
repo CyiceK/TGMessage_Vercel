@@ -38,4 +38,4 @@ if (is_null($token)) {
 			}
 			break;
 		}
-?>
+}
