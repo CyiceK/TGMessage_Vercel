@@ -43,6 +43,11 @@ class Bot
     {
         return $this->request('sendMessage', $data);
     }
+	
+	    public function sendPhoto($data): array
+    {
+        return $this->request('sendPhoto', $data);
+    }
 
     public function setWebHook($data)
     {
