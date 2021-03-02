@@ -27,6 +27,7 @@ if (is_null($token)) {
 			} else {
 				echo json_encode(['code' => 422, 'message' => $ret['description']]);
 			}
+			break;
 		case "sendPhoto":
 			//发图
 			$ret = $bot->sendPhoto(['parse_mode' => $parse_mode, 'caption' => $caption, 'photo' => $photo, 'chat_id' => $chat_id]);
@@ -35,4 +36,6 @@ if (is_null($token)) {
 			} else {
 				echo json_encode(['code' => 422, 'message' => $ret['description']]);
 			}
+			break;
 		}
+?>
